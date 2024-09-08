@@ -1,7 +1,6 @@
 "use client";
 
 import { CreateSiteAction } from "@/app/actions";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -13,10 +12,27 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useActionState } from "react";
+import { useForm } from "@conform-to/react";
+import { parseWithZod } from "@conform-to/zod";
 import { siteSchema } from "@/app/utils/zodSchemas";
+import { useActionState } from "react";
+import { SubmitButton } from "@/app/components/dashboard/submit-button";
 
 export default function NewSitePage() {
+  const [lastResult, action] = useActionState(CreateSiteAction, undefined);
+  const [form, fields] = useForm({
+    lastResult,
+
+    onValidate({ formData }) {
+      return parseWithZod(formData, {
+        schema: siteSchema,
+      });
+    },
+
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
+  });
+
   return (
     <div className="flex flex-col flex-1 items-center justify-center ">
       <Card className="max-w-[450px]">
@@ -27,25 +43,51 @@ export default function NewSitePage() {
           </CardDescription>
         </CardHeader>
 
-        <form>
+        <form id={form.id} onSubmit={form.onSubmit} action={action} noValidate>
           <CardContent>
             <div className="flex flex-col gap-y-6 ">
               <div className="flex flex-col gap-3">
                 <Label>Site Name</Label>
-                <Input type="" placeholder="Site name..." />
+                <Input
+                  type="text"
+                  placeholder="Site name..."
+                  name={fields.name.name}
+                  key={fields.name.key}
+                  defaultValue={fields.name.initialValue}
+                />
+
+                <p className="text-red-500 text-sm">{fields.name.errors}</p>
               </div>
               <div className="flex flex-col gap-3">
                 <Label>Sub-Directory</Label>
-                <Input type="" placeholder="Sub-directory name..." />
+                <Input
+                  type="text"
+                  name={fields.subdirectory.name}
+                  key={fields.subdirectory.key}
+                  defaultValue={fields.subdirectory.initialValue}
+                  placeholder="Sub-directory name..."
+                />
+                <p className="text-red-500 text-sm">
+                  {fields.subdirectory.errors}
+                </p>
               </div>
               <div className="flex flex-col gap-3">
                 <Label>Description</Label>
-                <Textarea placeholder="Small description for your site..." />
+                <Textarea
+                  placeholder="Small description for your site..."
+                  name={fields.description.name}
+                  key={fields.description.key}
+                  defaultValue={fields.description.initialValue}
+                />
+
+                <p className="text-red-500 text-sm">
+                  {fields.description.errors}
+                </p>
               </div>
             </div>
           </CardContent>
           <CardFooter>
-            <Button>Submit</Button>
+            <SubmitButton text="Create Site" />
           </CardFooter>
         </form>
       </Card>
