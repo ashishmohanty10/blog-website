@@ -55,5 +55,5 @@ export async function CreateArticleAction(
     },
   });
 
-  return redirect("/dashboard/sites");
+  return redirect(`/dashboard/sites/${formData.get("siteId")}`);
 }

@@ -25,12 +25,13 @@ import { useState } from "react";
 import { useFormState } from "react-dom";
 import { toast } from "sonner";
 import slugify from "react-slugify";
+import { SubmitButton } from "@/app/components/dashboard/submit-button";
 
 export default function ArticleCreattionRoute({
   params,
 }: {
   params: {
-    articlesId: string;
+    siteId: string;
   };
 }) {
   const [imageUrl, setImageurl] = useState<undefined | string>(undefined);
@@ -68,7 +69,7 @@ export default function ArticleCreattionRoute({
     <>
       <div className="flex items-center">
         <Button size={"icon"} variant={"outline"} className="mr-3" asChild>
-          <Link href={`/dashboard/sites/${params.articlesId}`}>
+          <Link href={`/dashboard/sites/${params.siteId}`}>
             <ArrowLeft className="size-4" />
           </Link>
         </Button>
@@ -89,6 +90,7 @@ export default function ArticleCreattionRoute({
             onSubmit={form.onSubmit}
             action={actions}
           >
+            <input type="hidden" name="siteId" value={params.siteId} />
             <div className="grid gap-3">
               <Label>Title</Label>
               <Input
@@ -186,7 +188,7 @@ export default function ArticleCreattionRoute({
               </p>
             </div>
 
-            <Button className="w-fit">Submit</Button>
+            <SubmitButton text="Create Article" />
           </form>
         </CardContent>
       </Card>

@@ -15,11 +15,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { siteSchema } from "@/app/utils/zodSchemas";
-import { useActionState } from "react";
 import { SubmitButton } from "@/app/components/dashboard/submit-button";
+import { useFormState } from "react-dom";
 
 export default function NewSitePage() {
-  const [lastResult, action] = useActionState(CreateSiteAction, undefined);
+  const [lastResult, action] = useFormState(CreateSiteAction, undefined);
   const [form, fields] = useForm({
     lastResult,
 
