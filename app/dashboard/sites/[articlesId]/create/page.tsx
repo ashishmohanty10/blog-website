@@ -1,6 +1,9 @@
 "use client";
 
+import { CreateArticleAction } from "@/app/actions";
+import TailwindEditor from "@/app/components/dashboard/editorWrapper";
 import { UploadDropzone } from "@/app/utils/uploadthingComponents";
+import { postSchema } from "@/app/utils/zodSchemas";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -12,11 +15,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { useForm } from "@conform-to/react";
+import { parseWithZod } from "@conform-to/zod";
 import { ArrowLeft, Atom } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { JSONContent } from "novel";
 import { useState } from "react";
+import { useFormState } from "react-dom";
 import { toast } from "sonner";
+import slugify from "react-slugify";
 
 export default function ArticleCreattionRoute({
   params,
@@ -26,6 +34,35 @@ export default function ArticleCreattionRoute({
   };
 }) {
   const [imageUrl, setImageurl] = useState<undefined | string>(undefined);
+  const [value, setValue] = useState<JSONContent | undefined>(undefined);
+  const [title, setTitle] = useState<undefined | string>(undefined);
+  const [slugValue, setSlugValue] = useState<undefined | string>(undefined);
+  const [lastResult, actions] = useFormState(CreateArticleAction, undefined);
+
+  const [form, fields] = useForm({
+    lastResult,
+
+    onValidate({ formData }) {
+      return parseWithZod(formData, {
+        schema: postSchema,
+      });
+    },
+
+    shouldValidate: "onBlur",
+    shouldRevalidate: "onInput",
+  });
+
+  function handleSlugGenerator() {
+    const titleInput = title;
+
+    if (titleInput?.length === 0 || titleInput === undefined) {
+      return toast.error("Please create a title first");
+    }
+
+    setSlugValue(slugify(titleInput));
+
+    return toast.success("Slug created successfully");
+  }
 
   return (
     <>
@@ -46,28 +83,70 @@ export default function ArticleCreattionRoute({
         </CardHeader>
 
         <CardContent>
-          <form className="flex flex-col  gap-6 ">
-            <div className="grid gap-2">
+          <form
+            className="flex flex-col  gap-6 "
+            id={form.id}
+            onSubmit={form.onSubmit}
+            action={actions}
+          >
+            <div className="grid gap-3">
               <Label>Title</Label>
-              <Input placeholder="blogging site.." />
+              <Input
+                placeholder="Blogging site.."
+                key={fields.title.key}
+                name={fields.title.name}
+                defaultValue={fields.title.initialValue}
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+              />
+
+              <p className="text-red-500 text-sm">{fields.title.errors}</p>
             </div>
 
-            <div className="grid gap-2">
+            <div className="grid gap-3">
               <Label>Slug</Label>
-              <Input placeholder="Article slug.." />
-              <Button className="w-fit" variant={"secondary"} type="button">
+              <Input
+                placeholder="Article slug.."
+                key={fields.slug.key}
+                name={fields.slug.name}
+                defaultValue={fields.slug.initialValue}
+                onChange={(e) => setSlugValue(e.target.value)}
+                value={slugValue}
+              />
+              <Button
+                className="w-fit"
+                variant={"secondary"}
+                type="button"
+                onClick={handleSlugGenerator}
+              >
                 <Atom className="size-4 mr-2" />
                 Generate Slug
               </Button>
+              <p className="text-red-500 text-sm">{fields.slug.errors}</p>
             </div>
 
-            <div className="grid gap-2">
+            <div className="grid gap-3">
               <Label>Small Description</Label>
-              <Textarea placeholder="Small Description for your article..." />
+              <Textarea
+                placeholder="Small Description for your article..."
+                key={fields.smallDescription.key}
+                name={fields.smallDescription.name}
+                defaultValue={fields.smallDescription.initialValue}
+              />
+              <p className="text-red-500 text-sm">
+                {fields.smallDescription.errors}
+              </p>
             </div>
 
-            <div className="grid gap-2">
+            <div className="grid gap-3">
               <Label>Create Image</Label>
+              <input
+                type="hidden"
+                name={fields.coverimage.name}
+                key={fields.coverimage.key}
+                defaultValue={fields.coverimage.initialValue}
+                value={imageUrl}
+              />
               {imageUrl ? (
                 <Image
                   src={imageUrl}
@@ -88,7 +167,26 @@ export default function ArticleCreattionRoute({
                   }}
                 />
               )}
+
+              <p className="text-red-500 text-sm">{fields.coverimage.errors}</p>
             </div>
+
+            <div className="grid gap-3">
+              <Label>Article Content</Label>
+              <input
+                type="hidden"
+                name={fields.articleContent.name}
+                key={fields.articleContent.key}
+                defaultValue={fields.articleContent.initialValue}
+                value={JSON.stringify(value)}
+              />
+              <TailwindEditor onChange={setValue} initialValue={value} />
+              <p className="text-red-500 text-sm">
+                {fields.articleContent.errors}
+              </p>
+            </div>
+
+            <Button className="w-fit">Submit</Button>
           </form>
         </CardContent>
       </Card>

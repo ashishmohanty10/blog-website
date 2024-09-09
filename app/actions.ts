@@ -2,18 +2,13 @@
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import { siteSchema } from "./utils/zodSchemas";
+import { postSchema, siteSchema } from "./utils/zodSchemas";
 import prisma from "./utils/db";
 import { parseWithZod } from "@conform-to/zod";
+import { requireuser } from "./utils/requireUser";
 
 export async function CreateSiteAction(prevState: unknown, formData: FormData) {
-  const { getUser } = getKindeServerSession();
-
-  const user = await getUser();
-
-  if (!user) {
-    redirect("/api/auth/login");
-  }
+  const user = await requireuser();
 
   const submission = parseWithZod(formData, {
     schema: siteSchema,
@@ -28,6 +23,35 @@ export async function CreateSiteAction(prevState: unknown, formData: FormData) {
       description: submission.value.description,
       subdirectory: submission.value.subdirectory,
       userId: user.id,
+    },
+  });
+
+  return redirect("/dashboard/sites");
+}
+
+export async function CreateArticleAction(
+  prevState: unknown,
+  formData: FormData
+) {
+  const user = await requireuser();
+
+  const submission = parseWithZod(formData, {
+    schema: postSchema,
+  });
+
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+
+  const respose = await prisma.post.create({
+    data: {
+      title: submission.value.title,
+      smallDescription: submission.value.smallDescription,
+      slug: submission.value.slug,
+      articleContent: JSON.parse(submission.value.articleContent),
+      image: submission.value.coverimage,
+      userId: user.id,
+      siteId: formData.get("siteId") as string,
     },
   });
 
