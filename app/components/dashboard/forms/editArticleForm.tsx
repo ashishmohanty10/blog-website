@@ -35,9 +35,10 @@ interface iAppProps {
     id: string;
     image: string;
   };
+  siteId: string;
 }
 
-export function EditArticleForm({ data }: iAppProps) {
+export function EditArticleForm({ data, siteId }: iAppProps) {
   const [imageUrl, setImageurl] = useState<undefined | string>(data.image);
   const [value, setValue] = useState<JSONContent | undefined>(
     data.articleContent
@@ -87,6 +88,7 @@ export function EditArticleForm({ data }: iAppProps) {
           action={actions}
         >
           <input type="hidden" name="articleId" value={data.id} />
+          <input type="hidden" name="siteId" value={siteId} />
           <div className="grid gap-3">
             <Label>Title</Label>
             <Input
@@ -184,7 +186,7 @@ export function EditArticleForm({ data }: iAppProps) {
             </p>
           </div>
 
-          <SubmitButton text="Create Article" />
+          <SubmitButton text="Edit Article" />
         </form>
       </CardContent>
     </Card>

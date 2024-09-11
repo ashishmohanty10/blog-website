@@ -197,9 +197,14 @@ export default async function ArticlesRoute({
                                 Edit
                               </Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="flex gap-2">
-                              <Trash className="size-4 text-red-600" />
-                              Delete
+                            <DropdownMenuItem className="flex gap-2" asChild>
+                              <Link
+                                className="flex items-center gap-2"
+                                href={`/dashboard/sites/${params.siteId}/${item.id}/delete`}
+                              >
+                                <Trash className="size-4 text-red-500" />
+                                Delete
+                              </Link>
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>

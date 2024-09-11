@@ -1,4 +1,4 @@
-import { EditArticleForm } from "@/app/components/dashboard/forms/editArticle";
+import { EditArticleForm } from "@/app/components/dashboard/forms/editArticleForm";
 import prisma from "@/app/utils/db";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -49,7 +49,7 @@ export default async function EditRoute({
         <h1 className="text-2xl font-semibold">Edit Article</h1>
       </div>
 
-      <EditArticleForm data={data} />
+      <EditArticleForm data={data} siteId={params.siteId} />
     </div>
   );
 }
