@@ -1,3 +1,4 @@
+import { EditArticleForm } from "@/app/components/dashboard/forms/editArticle";
 import prisma from "@/app/utils/db";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
@@ -12,8 +13,10 @@ async function getData(postId: string) {
     select: {
       image: true,
       title: true,
+      smallDescription: true,
       slug: true,
       articleContent: true,
+      id: true,
     },
   });
 
@@ -36,15 +39,17 @@ export default async function EditRoute({
 
   return (
     <div>
-      <div className="flex items-center">
+      <div className="flex items-center mb-6">
         <Button variant={"outline"} size={"icon"} asChild className="mr-3">
           <Link href={`/dashboard/sites/${params.siteId}`}>
             <ArrowLeft className="size-4 " />
           </Link>
         </Button>
 
-        <h1 className="text-2xl">Edit Article</h1>
+        <h1 className="text-2xl font-semibold">Edit Article</h1>
       </div>
+
+      <EditArticleForm data={data} />
     </div>
   );
 }
