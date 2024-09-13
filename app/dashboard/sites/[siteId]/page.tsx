@@ -37,6 +37,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { EmptyState } from "@/app/components/dashboard/emptyState";
 
 async function getData(userId: string, siteId: string) {
   const data = await prisma.post.findMany({
@@ -101,26 +102,12 @@ export default async function ArticlesRoute({
 
       {data === undefined || data.length === 0 ? (
         <>
-          <div className="flex flex-col items-center justify-center rounded-md border border-dashed p-8 text-center animate-in fade-in-10 ">
-            <div className="flex size-20 items-center justify-center rounded-full bg-primary/10 ">
-              <FileIcon className="size-10 text-primary " />
-            </div>
-            <h2 className="mt-6 text-xl fotn-semibold">
-              You dont have any site created!!
-            </h2>
-
-            <p className="mb-8 mt-2 text-center text-sm leading-tight text-muted-foreground max-w-sm  mx-auto">
-              You currently dont have any sites created. Please create some so
-              that you can see them here!
-            </p>
-
-            <Button asChild>
-              <Link href="/dashboard/sites/new">
-                <PlusCircle className="m-2 size-4" />
-                Create Site
-              </Link>
-            </Button>
-          </div>
+          <EmptyState
+            title="You dont have any articles created"
+            description="You currently dont have any articles. Please create an article to see one"
+            buttonText="Create Article"
+            href={`/dashboard/sites/${params.siteId}/create`}
+          />
         </>
       ) : (
         <div>

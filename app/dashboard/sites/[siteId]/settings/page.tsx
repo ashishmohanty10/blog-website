@@ -45,7 +45,7 @@ export default function SettingsSitePage({
 
         <CardFooter>
           <form action={DeleteSite}>
-            <input type="hidden" name={params.siteId} value={params.siteId} />
+            <input type="hidden" name="siteId" value={params.siteId} />
             <SubmitButton variant={"destructive"} text="Delete Everything" />
           </form>
         </CardFooter>
