@@ -85,7 +85,7 @@ export default async function ArticlesRoute({
         </Button>
 
         <Button asChild variant={"secondary"}>
-          <Link href={"#"}>
+          <Link href={`/dashboard/sites/${params.siteId}/settings`}>
             <SettingsIcon className="size-4 mr-2" />
             Settings
           </Link>

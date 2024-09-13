@@ -24,11 +24,6 @@ export const navLinks = [
     href: "/dashboard/sites",
     icon: Globe,
   },
-  {
-    name: "Pricing",
-    href: "/dashboard/pricing",
-    icon: DollarSign,
-  },
 ];
 
 export default function DashboardLayout({

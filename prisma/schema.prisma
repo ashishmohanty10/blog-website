@@ -55,6 +55,6 @@ model Post {
   upddatedAt DateTime @updatedAt
   User       User?    @relation(fields: [userId], references: [id])
   userId     String?
-  Site       Site?    @relation(fields: [siteId], references: [id])
+  Site       Site?    @relation(fields: [siteId], references: [id], onDelete: Cascade)
   siteId     String?
 }
