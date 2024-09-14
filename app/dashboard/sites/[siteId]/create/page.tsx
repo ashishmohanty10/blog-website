@@ -5,13 +5,7 @@ import TailwindEditor from "@/app/components/dashboard/editorWrapper";
 import { UploadDropzone } from "@/app/utils/uploadthingComponents";
 import { postSchema } from "@/app/utils/zodSchemas";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -80,7 +74,6 @@ export default function ArticleCreattionRoute({
       <Card>
         <CardHeader>
           <CardTitle>Articles Details</CardTitle>
-          <CardDescription></CardDescription>
         </CardHeader>
 
         <CardContent>

@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { postSchema, SiteCreationSchema, siteSchema } from "./utils/zodSchemas";
+import { postSchema, SiteCreationSchema } from "./utils/zodSchemas";
 import prisma from "./utils/db";
 import { parseWithZod } from "@conform-to/zod";
 import { requireuser } from "./utils/requireUser";
