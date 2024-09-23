@@ -82,12 +82,12 @@ export default async function DashboardPage() {
         <EmptyState
           title="You dont have any sites created"
           description="You currently dont have any sites . Please create some so that you can see them right here"
-          href="/dasboard/sites/new"
+          href="/dashboard/sites/new"
           buttonText="Create Site"
         />
       )}
 
-      <h1 className="text-2xl mt-10 font-semibold">Recent Articles</h1>
+      <h1 className="text-2xl mt-10 font-semibold mb-4">Recent Articles</h1>
 
       {articles.length > 0 ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
@@ -122,7 +122,7 @@ export default async function DashboardPage() {
         <EmptyState
           title="You dont have any articles created"
           description="You currently dont have any article . Please create some so that you can see them right here"
-          href="/dasboard/sites/new"
+          href={"/dashboard/sites/new"}
           buttonText="Create Article"
         />
       )}

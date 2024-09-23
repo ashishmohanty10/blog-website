@@ -20,7 +20,7 @@ import { SubmitButton } from "../submit-button";
 import { useState } from "react";
 import { JSONContent } from "novel";
 import { useFormState } from "react-dom";
-import { CreateArticleAction, EditPostAction } from "@/app/actions";
+import { EditPostAction } from "@/app/actions";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { postSchema } from "@/app/utils/zodSchemas";

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Logo from "@/public/logo.svg";
 import DashboardItems from "../components/dashboard/dashboardItems";
-import { CircleUser, DollarSign, Globe, Home } from "lucide-react";
+import { Book, CircleUser, DollarSign, Globe, Home } from "lucide-react";
 import { ThemeToggle } from "../components/dashboard/theme-toggler";
 import {
   DropdownMenu,
@@ -15,7 +15,7 @@ import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
 export const navLinks = [
   {
-    name: "Dashboard",
+    name: "Your Dashboard",
     href: "/dashboard",
     icon: Home,
   },
