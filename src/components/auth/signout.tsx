@@ -1,6 +1,7 @@
 import { signOut } from "@/auth";
+import { Button } from "../ui/button";
 
-export default function SignIn() {
+export default function Singnout() {
   return (
     <form
       action={async () => {
@@ -8,7 +9,7 @@ export default function SignIn() {
         await signOut();
       }}
     >
-      <button type="submit">Signin with Google</button>
+      <Button type="submit">Log out</Button>
     </form>
   );
 }
