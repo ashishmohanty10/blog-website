@@ -21,9 +21,9 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  blog          Blogs[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model Account {
@@ -63,4 +63,19 @@ model VerificationToken {
   expires    DateTime
 
   @@id([identifier, token])
+}
+
+model Blogs {
+  id String @id @default(cuid())
+
+  title            String
+  slug             String
+  smalldescription String
+  image            String
+  articleContent   Json
+  User             User?   @relation(fields: [userId], references: [id])
+  userId           String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

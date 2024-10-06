@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/landing-page/Navbar";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -7,7 +8,7 @@ export default function Home() {
       <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)] -z-10"></div>
       <Navbar />
 
-      <div className="mx-5 md:mx-10 lg:mx-20 flex flex-col items-center justify-center py-40 z-10">
+      <div className="mx-5 md:mx-10 lg:mx-20 flex flex-col items-center justify-center py-36 z-10">
         <h3 className="text-5xl font-extrabold text-slate-800 mb-5 underline decoration-wavy decoration-black/70 -tracking-tight">
           Your Stories,Your Platform
         </h3>
@@ -18,12 +19,16 @@ export default function Home() {
         </p>
 
         <div className="flex items-center justify-center gap-5">
-          <Button className="text-sm " variant={"default"}>
-            Start Blogging
+          <Button className="text-sm" variant={"default"} asChild>
+            <Link href={"/dashboard/create"}>Start Blogging</Link>
           </Button>
-          <Button className="text-sm shadow-xl  " variant={"secondary"}>
-            Browse Blogs
+          <Button asChild className="text-sm shadow-xl  " variant={"secondary"}>
+            <Link href={"/dashboard/blog"}>Browse Blogs</Link>
           </Button>
+        </div>
+
+        <div className="w-[850px] h-[500px] bg-gradient-to-r from-zinc-900 to-zinc-400  rounded-xl  my-10 shadow-2xl p-3">
+          <div className="h-full w-full bg-white"></div>
         </div>
       </div>
     </div>

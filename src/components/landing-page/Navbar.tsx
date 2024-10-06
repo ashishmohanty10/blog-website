@@ -6,6 +6,7 @@ import { PenTool } from "lucide-react";
 import { Button } from "../ui/button";
 import X from "@/../public/logo-black.png";
 import Image from "next/image";
+import { ModeToggle } from "../theme/theme-toggler";
 
 export async function Navbar() {
   const session = await auth();
@@ -34,6 +35,8 @@ export async function Navbar() {
               <Image src={X} alt="X logo " className="size-4" />
             </Link>
           </Button>
+
+          <ModeToggle />
         </div>
       </nav>
     </>
