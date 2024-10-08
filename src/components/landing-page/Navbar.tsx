@@ -15,19 +15,18 @@ export async function Navbar() {
   return (
     <>
       <div className="print:hidden h-5"></div>
-      <nav className="max-w-7xl min-w-[400px] mx-auto py-4 px-10 flex items-center justify-between  rounded-md  backdrop-blur-sm bg-white/30 sticky top-0 shadow-2xl z-50">
+      <nav className="max-w-7xl min-w-[400px] mx-auto py-4 px-10 flex items-center justify-between  rounded-lg  backdrop-blur-sm bg-white/5 sticky top-0 shadow-2xl z-50">
         <Link href={"/"} className="text-2xl font-bold flex items-center gap-2">
           <PenTool className="size-8" />
           Inspire-Ink
         </Link>
 
         <div className="flex items-center gap-4">
-          {user ? <Singnout /> : <SignIn />}
-
+          <ModeToggle />
           <Button
             size={"icon"}
             variant={"secondary"}
-            className="rounded-full relative"
+            className="rounded-full relative dark:bg-foreground"
             asChild
           >
             <Link href={"https://github.com/ashishmohanty10"} target="_blank">
@@ -36,7 +35,7 @@ export async function Navbar() {
             </Link>
           </Button>
 
-          <ModeToggle />
+          {user ? <Singnout /> : <SignIn />}
         </div>
       </nav>
     </>
