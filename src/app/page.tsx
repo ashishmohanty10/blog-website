@@ -1,5 +1,5 @@
 import { Background } from "@/components/background";
-import { Navbar } from "@/components/landing-page/Navbar";
+import { Navbar } from "@/components/landing-page/landing-page-navbar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -19,12 +19,12 @@ export default function Home() {
           care. Start sharing your passion today.
         </p>
 
-        <div className="flex items-center justify-center gap-5">
+        <div className="flex items-center justify-center gap-5 z-50">
           <Button className="text-sm" variant={"default"} asChild>
             <Link href={"/blogs/create"}>Start Blogging</Link>
           </Button>
           <Button asChild className="text-sm shadow-xl  " variant={"secondary"}>
-            <Link href={"/blogs/blog"}>Browse Blogs</Link>
+            <Link href={"/blogs"}>Browse Blogs</Link>
           </Button>
         </div>
 

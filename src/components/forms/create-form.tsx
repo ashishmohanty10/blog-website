@@ -148,7 +148,7 @@ export default function CreateForm() {
                   alt="uploaded image"
                   width={200}
                   height={200}
-                  className="object-cover w-[200px] h-[200px] rounded-lg"
+                  className="object-cover rounded-lg"
                 />
               ) : (
                 <UploadDropzone

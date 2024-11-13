@@ -1,7 +1,12 @@
 import { signOut } from "@/auth";
 import { Button } from "../ui/button";
 
-export default function Singnout() {
+interface SingnoutProps {
+  varient?: "ghost" | "link" | "secondary" | "outline";
+  className?: string;
+}
+
+export default function Singnout({ className, varient }: SingnoutProps) {
   return (
     <form
       action={async () => {
@@ -9,7 +14,9 @@ export default function Singnout() {
         await signOut();
       }}
     >
-      <Button type="submit">Log out</Button>
+      <Button type="submit" className={className} variant={varient}>
+        Log out
+      </Button>
     </form>
   );
 }

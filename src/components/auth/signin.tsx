@@ -1,5 +1,6 @@
 import { signIn } from "@/auth";
 import { Button } from "../ui/button";
+import { redirect } from "next/navigation";
 
 export default function SignIn() {
   return (
@@ -7,6 +8,8 @@ export default function SignIn() {
       action={async () => {
         "use server";
         await signIn();
+
+        redirect("/blogs");
       }}
     >
       <Button type="submit">Signin</Button>

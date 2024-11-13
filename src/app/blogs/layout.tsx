@@ -1,7 +1,14 @@
+import { BlogNavbar } from "@/components/blogs/navbar";
+
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <div>{children}</div>;
+  return (
+    <div>
+      <BlogNavbar />
+      {children}
+    </div>
+  );
 }

@@ -1,4 +1,4 @@
-import CreateForm from "@/components/forms/createForm";
+import CreateForm from "@/components/forms/create-form";
 import { Button } from "@/components/ui/button";
 import { requireUser } from "@/lib/requireUser";
 import { ArrowLeft } from "lucide-react";
