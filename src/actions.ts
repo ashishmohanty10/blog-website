@@ -8,6 +8,9 @@ import { prisma } from "./lib/db";
 
 export async function createBlog(prevState: unknown, formData: FormData) {
   const user = await requireUser();
+  if (!user) {
+    redirect("/");
+  }
 
   const submission = parseWithZod(formData, {
     schema: postSchema,

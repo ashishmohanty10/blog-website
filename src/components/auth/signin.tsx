@@ -8,8 +8,7 @@ export default function SignIn() {
       action={async () => {
         "use server";
         await signIn();
-
-        redirect("/blogs");
+        redirect("/");
       }}
     >
       <Button type="submit">Signin</Button>

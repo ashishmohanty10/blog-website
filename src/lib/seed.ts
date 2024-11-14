@@ -1,5 +1,6 @@
+import { title } from "process";
 import { prisma } from "./db";
-import { randomUUID, UUID } from "crypto";
+import { randomUUID } from "crypto";
 
 const blogsContent = [
   {
@@ -311,7 +312,7 @@ async function seedFunction() {
   const blogs = blogsContent.map(
     async (items) =>
       await prisma.blogs.upsert({
-        where: { id: "123" },
+        where: { id: "blogs" },
         update: {},
         create: {
           id: randomUUID(),

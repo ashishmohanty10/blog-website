@@ -9,21 +9,25 @@ import {
 } from "@/components/ui/card";
 import { getAllBlogs } from "@/lib/data";
 import Image from "next/image";
+import Link from "next/link";
 
 export async function GetAllBlogs() {
   const data = await getAllBlogs();
   return (
-    <>
+    <div className="col-span-4 xl:col-span-3 gap-4 items-start flex flex-col space-y-2">
       {data.map((items) => (
-        <Card className="col-span-3 w-2/3 h-full">
-          <CardHeader>
-            <Image
-              src={items.image}
-              alt={items.title}
-              className="w-full h-fit object-contain"
-              width={200}
-              height={200}
-            />
+        <Card className="col-span-3 w-full h-fit" key={items.id}>
+          <CardHeader className="overflow-hidden">
+            <Link href={`/blogs/${items.id}`}>
+              <Image
+                src={items.image}
+                alt={items.title}
+                className="w-full h-1/2 object-contain cursor-pointer"
+                priority
+                width={500}
+                height={500}
+              />
+            </Link>
 
             <CardContent className="flex flex-col space-y-5 h-1/2">
               <p className="text-xs text-end">
@@ -43,6 +47,6 @@ export async function GetAllBlogs() {
           </CardHeader>
         </Card>
       ))}
-    </>
+    </div>
   );
 }

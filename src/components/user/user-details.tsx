@@ -9,10 +9,32 @@ import {
 } from "../ui/dropdown-menu";
 import Singnout from "../auth/signout";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+
+const userDetailsTexts = [
+  {
+    name: "Profile",
+    href: "#",
+  },
+
+  {
+    name: "Your Stories",
+    href: "#",
+  },
+
+  {
+    name: "Settings",
+    href: "#",
+  },
+];
 
 export async function UserDetails() {
   const session = await auth();
   const user = session?.user;
+
+  if (!user) {
+    redirect("/");
+  }
 
   return (
     <>
@@ -30,19 +52,16 @@ export async function UserDetails() {
         </DropdownMenuTrigger>
 
         <DropdownMenuContent className="px-5">
-          <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <Link href="#">Profile</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link href="#">Your Stories</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link href="#">Settings</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>{user?.email}</DropdownMenuItem>
-            <DropdownMenuItem className="w-full ">
-              <Singnout varient="outline" className="w-full" />
+          <DropdownMenuGroup className="py-4">
+            {userDetailsTexts.map((items) => (
+              <Link href={items.href} key={items.name}>
+                <DropdownMenuItem className="py-3 px-5">
+                  {items.name}
+                </DropdownMenuItem>
+              </Link>
+            ))}
+            <DropdownMenuItem className="w-full">
+              <Singnout varient="ghost" className="w-full px-5 m-0" />
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>

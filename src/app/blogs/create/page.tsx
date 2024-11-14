@@ -3,13 +3,9 @@ import { Button } from "@/components/ui/button";
 import { requireUser } from "@/lib/requireUser";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 export default async function CreateRoute() {
-  const user = await requireUser();
-  if (!user) {
-    redirect("/api/auth/signin");
-  }
+  await requireUser();
 
   return (
     <>

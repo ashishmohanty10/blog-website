@@ -21,9 +21,12 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  blog          Blogs[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+
+  role Role @default(USER)
+
+  blog      Blogs[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Account {
@@ -73,9 +76,14 @@ model Blogs {
   smalldescription String
   image            String
   articleContent   Json
-  User             User?   @relation(fields: [userId], references: [id])
+  User             User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId           String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
 }
