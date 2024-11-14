@@ -7,6 +7,7 @@ import X from "@/../public/logo-black.png";
 import Image from "next/image";
 import { ModeToggle } from "../theme/theme-toggler";
 import { Logo } from "../logo";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export async function Navbar() {
   const session = await auth();
@@ -32,7 +33,15 @@ export async function Navbar() {
             </Link>
           </Button>
 
-          {user ? <Singnout /> : <SignIn />}
+          <Avatar>
+            <AvatarImage src={user?.image} referrerPolicy="no-referrer" />
+            <AvatarFallback className="bg-zinc-500 font-semibold text-sm">
+              {user?.name
+                ?.split(" ")
+                .map((n) => n[0])
+                .join(".")}
+            </AvatarFallback>
+          </Avatar>
         </div>
       </nav>
     </>

@@ -19,9 +19,12 @@ export async function UserDetails() {
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Avatar>
-            <AvatarImage src={user?.image} />
-            <AvatarFallback className="font-semibold text-sm">
-              {user?.name?.slice(0, 1)}
+            <AvatarImage src={user?.image} referrerPolicy="no-referrer" />
+            <AvatarFallback className="bg-zinc-500 font-semibold text-sm">
+              {user?.name
+                ?.split(" ")
+                .map((n) => n[0])
+                .join(".")}
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
